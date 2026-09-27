@@ -1,0 +1,236 @@
+/* =========================================================================
+   МЭШ · Тёмная тема  —  src/theme.css
+   Ядро темы: перекраска семантических токенов дизайн-системы Lemma
+   (все CSS-переменные --LM-*), плюс правки легаси-страниц.
+   Файл всегда подключён; правила работают только когда на <html> стоит
+   атрибут data-mesh-dark="on" (или атрибут отсутствует — тогда тёмная
+   тема включена по умолчанию), либо data-mesh-dark="auto" и система тёмная.
+   ========================================================================= */
+
+/* ------------------------------------------------------------------ *
+ * 1. Тёмная палитра (значения токенов)
+ * ------------------------------------------------------------------ */
+html[data-mesh-dark="on"],
+html:not([data-mesh-dark]) {
+  color-scheme: dark;
+
+  /* --- вспомогательные переменные расширения --- */
+  --mesh-bg:            #0e1015;
+  --mesh-surface-1:     #161a21;
+  --mesh-surface-2:     #1d222b;
+  --mesh-surface-3:     #232833;
+  --mesh-border:        #2b303b;
+  --mesh-text:          #e7e9ef;
+  --mesh-text-dim:      rgba(231, 233, 239, 0.68);
+  --mesh-accent:        #7c94ff;
+  --mesh-accent-hover:  #8ca1ff;
+  --mesh-accent-press:  #6f86f5;
+  --mesh-accent-rgb:    124, 148, 255;
+
+  /* --- слои / поверхности --- */
+  --LM-layer-background:  #0e1015;
+  --LM-layer-1:           #161a21;
+  --LM-layer-1-alt:       #1a1e26;
+  --LM-layer-2:           #1d222b;
+  --LM-layer-2-alt:       #232833;
+  --LM-layer-inverted:    #eef0f5;
+  --LM-layer-overlay:     rgba(0, 0, 0, 0.60);
+  --LM-layer-darken:      rgba(0, 0, 0, 0.82);
+  --LM-layer-on-solid:    #ffffff;
+  --LM-layer-on-solid-soft: rgba(255, 255, 255, 0.16);
+  --LM-layer-neutral-soft:   rgba(255, 255, 255, 0.10);
+  --LM-layer-neutral-subtle: rgba(255, 255, 255, 0.055);
+  --LM-layer-neutral-solid:  #8b8f99;
+  --LM-layer-accent-soft:    rgba(var(--mesh-accent-rgb), 0.16);
+  --LM-layer-accent-subtle:  rgba(var(--mesh-accent-rgb), 0.10);
+  --LM-layer-accent-solid:   var(--mesh-accent);
+  --LM-layer-negative-soft:   rgba(255, 107, 115, 0.16);
+  --LM-layer-negative-subtle: rgba(255, 107, 115, 0.09);
+  --LM-layer-negative-solid:  #e2565e;
+  --LM-layer-positive-soft:   rgba(70, 207, 98, 0.16);
+  --LM-layer-positive-subtle: rgba(70, 207, 98, 0.09);
+  --LM-layer-positive-solid:  #2fae4b;
+  --LM-layer-warning-soft:    rgba(255, 159, 74, 0.16);
+  --LM-layer-warning-subtle:  rgba(255, 159, 74, 0.09);
+  --LM-layer-warning-solid:   #e2873a;
+
+  /* --- текст / контент --- */
+  --LM-content-primary:    var(--mesh-text);
+  --LM-content-secondary:  var(--mesh-text-dim);
+  --LM-content-tertiary:   rgba(231, 233, 239, 0.50);
+  --LM-content-inverted:   #0a0b0f;
+  --LM-content-on-solid:   #ffffff;
+  --LM-content-on-layer-on-solid-primary:   #0a0b0f;
+  --LM-content-on-layer-on-solid-secondary:  rgba(10, 11, 15, 0.65);
+  --LM-content-accent:            var(--mesh-accent);
+  --LM-content-accent-on-soft:    var(--mesh-accent-hover);
+  --LM-content-negative:          #ff7a80;
+  --LM-content-negative-on-soft:  #ff9aa0;
+  --LM-content-positive:          #52d16d;
+  --LM-content-positive-on-soft:  #7ee094;
+  --LM-content-warning:           #ffa552;
+  --LM-content-warning-on-soft:   #ffbe80;
+
+  /* --- иконки --- */
+  --LM-icon-neutral-solid:  #a2a6b0;
+  --LM-icon-neutral-soft:   rgba(255, 255, 255, 0.28);
+  --LM-icon-accent-solid:   var(--mesh-accent);
+  --LM-icon-negative-solid: #ff7a80;
+  --LM-icon-positive-solid: #52d16d;
+  --LM-icon-warning-solid:  #ffa552;
+
+  /* --- границы --- */
+  --LM-border-on-layer-1:   #2b303b;
+  --LM-border-on-layer-2:   #343a47;
+  --LM-border-control:      #3a404d;
+  --LM-border-on-solid:     #ffffff;
+  --LM-border-neutral-soft: rgba(255, 255, 255, 0.22);
+  --LM-border-accent-solid: var(--mesh-accent);
+  --LM-border-accent-soft:  rgba(var(--mesh-accent-rgb), 0.45);
+  --LM-border-negative-solid: #ff6b73;
+  --LM-border-negative-soft:  rgba(255, 107, 115, 0.45);
+  --LM-border-positive-solid: #46cf62;
+  --LM-border-positive-soft:  rgba(70, 207, 98, 0.50);
+  --LM-border-warning-solid:  #ff9f4a;
+  --LM-border-warning-soft:   rgba(255, 159, 74, 0.50);
+
+  /* --- интерактивные состояния --- */
+  --LM-interactive-layer-disabled:            rgba(255, 255, 255, 0.06);
+  --LM-interactive-layer-neutral-soft-hover:  rgba(255, 255, 255, 0.12);
+  --LM-interactive-layer-neutral-soft-pressed:rgba(255, 255, 255, 0.18);
+  --LM-interactive-layer-neutral-solid-hover: #a2a6b0;
+  --LM-interactive-layer-neutral-solid-pressed:#8b8f99;
+  --LM-interactive-layer-2-hover:   #20252f;
+  --LM-interactive-layer-2-pressed: #272d38;
+  --LM-interactive-layer-darken-hover:   rgba(70, 72, 82, 0.90);
+  --LM-interactive-layer-darken-pressed: #101216;
+  --LM-interactive-layer-accent-soft-hover:   rgba(var(--mesh-accent-rgb), 0.28);
+  --LM-interactive-layer-accent-soft-pressed: rgba(var(--mesh-accent-rgb), 0.38);
+  --LM-interactive-layer-accent-solid-hover:   var(--mesh-accent-hover);
+  --LM-interactive-layer-accent-solid-pressed: var(--mesh-accent-press);
+  --LM-interactive-layer-negative-soft-hover:    rgba(255, 107, 115, 0.30);
+  --LM-interactive-layer-negative-soft-pressed:  rgba(255, 107, 115, 0.42);
+  --LM-interactive-layer-negative-solid-hover:   #ff9499;
+  --LM-interactive-layer-negative-solid-pressed: #ff5a63;
+  --LM-interactive-layer-positive-soft-hover:    rgba(70, 207, 98, 0.30);
+  --LM-interactive-layer-positive-soft-pressed:  rgba(70, 207, 98, 0.42);
+  --LM-interactive-layer-positive-solid-hover:   #6fdc87;
+  --LM-interactive-layer-positive-solid-pressed: #35b84f;
+  --LM-interactive-layer-warning-soft-hover:     rgba(255, 159, 74, 0.32);
+  --LM-interactive-layer-warning-soft-pressed:   rgba(255, 159, 74, 0.44);
+  --LM-interactive-layer-warning-solid-hover:    #ffb56e;
+  --LM-interactive-layer-warning-solid-pressed:  #f08c33;
+  --LM-interactive-layer-on-solid-hover:        #eef0f5;
+  --LM-interactive-layer-on-solid-pressed:      #d7dae2;
+  --LM-interactive-layer-on-solid-soft-hover:   rgba(255, 255, 255, 0.18);
+  --LM-interactive-layer-on-solid-soft-pressed: rgba(255, 255, 255, 0.12);
+
+  --LM-interactive-content-disabled:        rgba(231, 233, 239, 0.40);
+  --LM-interactive-content-secondary-hover: #ffffff;
+  --LM-interactive-content-secondary-pressed: rgba(231, 233, 239, 0.72);
+  --LM-interactive-content-on-solid-disabled: rgba(255, 255, 255, 0.50);
+  --LM-interactive-content-on-solid-hover:    rgba(255, 255, 255, 0.85);
+  --LM-interactive-content-on-solid-pressed:  rgba(255, 255, 255, 0.65);
+  --LM-interactive-content-accent-hover:   var(--mesh-accent-hover);
+  --LM-interactive-content-accent-pressed: var(--mesh-accent-press);
+  --LM-interactive-content-negative-hover:   #ff9499;
+  --LM-interactive-content-negative-pressed: #ff5a63;
+  --LM-interactive-content-positive-hover:   #6fdc87;
+  --LM-interactive-content-positive-pressed: #35b84f;
+  --LM-interactive-content-warning-hover:    #ffb56e;
+  --LM-interactive-content-warning-pressed:  #f08c33;
+
+  --LM-interactive-border-disabled:         rgba(255, 255, 255, 0.10);
+  --LM-interactive-border-on-solid-disabled:rgba(255, 255, 255, 0.60);
+
+  /* --- белые кнопки на цветных поверхностях --- */
+  --LM-btn-on-sol-bg:                 #1d222b;
+  --LM-btn-on-sol-content-disabled:   rgba(231, 233, 239, 0.40);
+  --LM-btn-on-sol-accent-cont:          var(--mesh-accent);
+  --LM-btn-on-sol-accent-cont-hover:    var(--mesh-accent-hover);
+  --LM-btn-on-sol-accent-cont-pressed:  var(--mesh-accent-press);
+  --LM-btn-on-sol-negative-cont:         #ff7a80;
+  --LM-btn-on-sol-negative-cont-hover:   #ff9499;
+  --LM-btn-on-sol-negative-cont-pressed: #ff5a63;
+  --LM-btn-on-sol-positive-cont:         #52d16d;
+  --LM-btn-on-sol-positive-cont-hover:   #6fdc87;
+  --LM-btn-on-sol-positive-cont-pressed: #35b84f;
+  --LM-btn-on-sol-warning-cont:          #ffa552;
+  --LM-btn-on-sol-warning-cont-hover:    #ffb56e;
+  --LM-btn-on-sol-warning-cont-pressed:  #f08c33;
+
+  /* --- слайдеры / свитчеры --- */
+  --LM-slider-knob:                  #e7e9ef;
+  --LM-slider-knob-border:           #3a404d;
+  --LM-slider-knob-disabled:         #3a404d;
+  --LM-slider-selected-range-disabled: #4a5060;
+  --LM-switcher-selected-item-bg:    #2a3040;
+
+  /* --- «шапка» (global header) --- */
+  --LM-gheader-b2b-bg-color:       #2f47b8;
+  --LM-gheader-b2b-bg-color-hover: rgba(255, 255, 255, 0.14);
+  --LM-gheader-b2b-bg-dark:        #232b44;
+  --LM-gheader-b2b-bg-dark-hover:  rgba(255, 255, 255, 0.12);
+  --LM-gheader-b2b-content-primary: #ffffff;
+  --LM-gheader-b2b-content-secondary-on-color: hsla(0, 0%, 100%, 0.72);
+  --LM-gheader-b2c-bg:             #161a21;
+  --LM-gheader-b2c-bg-hover:       rgba(255, 255, 255, 0.10);
+  --LM-gheader-b2c-content-primary:   var(--mesh-text);
+  --LM-gheader-b2c-content-secondary: var(--mesh-text-dim);
+}
+
+/* Режим «Системная» разрешается в content.js: атрибут выставляется в on/off
+   в зависимости от prefers-color-scheme, поэтому отдельный @media здесь не нужен. */
+
+/* ------------------------------------------------------------------ *
+ * 2. Базовая страница, выделение, скроллбары
+ * ------------------------------------------------------------------ */
+html[data-mesh-dark="on"],
+html:not([data-mesh-dark]) {
+  background-color: var(--mesh-bg) !important;
+}
+
+html[data-mesh-dark="on"] body,
+html:not([data-mesh-dark]) body {
+  background-color: var(--mesh-bg) !important;
+  color: var(--mesh-text);
+}
+
+html[data-mesh-dark="on"] ::selection,
+html:not([data-mesh-dark]) ::selection {
+  background: rgba(var(--mesh-accent-rgb), 0.35);
+  color: #fff;
+}
+
+html[data-mesh-dark="on"] *,
+html:not([data-mesh-dark]) * {
+  scrollbar-color: #3a404d transparent;
+}
+
+/* ------------------------------------------------------------------ *
+ * 3. Легаси-страницы (авторизация/лендинг, старые модули без токенов)
+ *    Точечно правим только фоны/текст, не ломая вёрстку.
+ * ------------------------------------------------------------------ */
+html[data-mesh-dark="on"] .connect_Content__1S3G8,
+html:not([data-mesh-dark]) .connect_Content__1S3G8 {
+  background: var(--mesh-bg) !important;
+}
+
+/* карточки и панели с белым фоном */
+html[data-mesh-dark="on"] [class*="style_"][class*="__"] {
+  border-color: var(--mesh-border);
+}
+
+/* ------------------------------------------------------------------ *
+ * 4. Приглушение ярких изображений (опция в попапе)
+ * ------------------------------------------------------------------ */
+html[data-mesh-dim] img,
+html[data-mesh-dim] video,
+html[data-mesh-dim] canvas:not([data-mesh-keep]) {
+  filter: brightness(0.82) contrast(0.95) saturate(0.95);
+  transition: filter 0.2s ease;
+}
+html[data-mesh-dim] img:hover,
+html[data-mesh-dim] video:hover {
+  filter: none;
+}

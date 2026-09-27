@@ -1,0 +1,51 @@
+/* =========================================================================
+   МЭШ · Тёмная тема  —  src/accent.css
+   Акцентные цвета. Файл подключается последним, поэтому переопределяет
+   значения индиго-темы и акцентные токены. Меняется только выбор
+   пользователя в попапе (атрибут data-mesh-accent на <html>).
+   ========================================================================= */
+
+/* Индиго-тема и семантические акцентные токены следуют за --mesh-accent* */
+html[data-mesh-dark="on"],
+html:not([data-mesh-dark]) {
+  --LM-theme-indigo-border-soft:      rgba(var(--mesh-accent-rgb), 0.45);
+  --LM-theme-indigo-border-solid:     var(--mesh-accent);
+  --LM-theme-indigo-content:          var(--mesh-accent);
+  --LM-theme-indigo-content-on-soft:  var(--mesh-accent-hover);
+  --LM-theme-indigo-icon-solid:       var(--mesh-accent);
+  --LM-theme-indigo-layer-soft:       rgba(var(--mesh-accent-rgb), 0.20);
+  --LM-theme-indigo-layer-soft-hover: rgba(var(--mesh-accent-rgb), 0.30);
+  --LM-theme-indigo-layer-subtle:     rgba(var(--mesh-accent-rgb), 0.12);
+  --LM-theme-indigo-layer-solid:          var(--mesh-accent);
+  --LM-theme-indigo-layer-solid-hover:    var(--mesh-accent-hover);
+  --LM-theme-indigo-layer-solid-pressed:  var(--mesh-accent-press);
+}
+
+/* -------- пресеты -------- */
+html[data-mesh-accent="blue"] {
+  --mesh-accent: #4a9eff;
+  --mesh-accent-hover: #65adff;
+  --mesh-accent-press: #3d8be6;
+  --mesh-accent-rgb: 74, 158, 255;
+}
+
+html[data-mesh-accent="violet"] {
+  --mesh-accent: #9d84ff;
+  --mesh-accent-hover: #ac96ff;
+  --mesh-accent-press: #8a74e0;
+  --mesh-accent-rgb: 157, 132, 255;
+}
+
+html[data-mesh-accent="green"] {
+  --mesh-accent: #46cf62;
+  --mesh-accent-hover: #6fdc87;
+  --mesh-accent-press: #35b84f;
+  --mesh-accent-rgb: 70, 207, 98;
+}
+
+html[data-mesh-accent="magenta"] {
+  --mesh-accent: #ff5aa8;
+  --mesh-accent-hover: #ff6eb2;
+  --mesh-accent-press: #e64a95;
+  --mesh-accent-rgb: 255, 90, 168;
+}

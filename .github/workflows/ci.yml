@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Установка зависимостей
+        run: npm install --no-audit --no-fund
+
+      - name: Проверка манифеста и кода (web-ext lint)
+        run: npx web-ext lint --source-dir . --warnings-as-errors
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Сборка архива
+        run: bash build.sh
+
+      - name: Загрузка артефактов
+        uses: actions/upload-artifact@v4
+        with:
+          name: mesh-dark-package
+          path: dist/*
+          if-no-files-found: error

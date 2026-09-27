@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "МЭШ · Тёмная тема",
+  "short_name": "МЭШ Dark",
+  "version": "1.0.0",
+  "description": "Тёмная тема для school.mos.ru: аккуратное оформление, 5 акцентных цветов, приглушение изображений и режим системной темы.",
+  "author": "MESH Dark contributors",
+  "homepage_url": "https://github.com/Op1xx/MESH.dark",
+  "developer": {
+    "name": "MESH Dark contributors",
+    "url": "https://github.com/Op1xx/MESH.dark"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "mesh-dark@mesh-dark",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": ["storage"],
+  "host_permissions": ["*://school.mos.ru/*"],
+  "action": {
+    "default_title": "МЭШ · Тёмная тема",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://school.mos.ru/*"],
+      "js": ["src/content.js"],
+      "css": ["src/theme.css", "src/theme-tokens.css", "src/accent.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}

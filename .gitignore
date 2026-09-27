@@ -1,0 +1,30 @@
+# Сборки и артефакты
+/dist/
+/web-ext-artifacts/
+*.zip
+*.xpi
+*.crx
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Редакторы / ОС
+.DS_Store
+Thumbs.db
+.directory
+.idea/
+.vscode/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.pyc
+
+# Локальные секреты (ключи подписи AMO)
+.env
+.env.*
+web-ext-*.json
+!web-ext-config.mjs

@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      AMO_API_KEY: ${{ secrets.AMO_API_KEY }}
+      AMO_API_SECRET: ${{ secrets.AMO_API_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Установка зависимостей
+        run: npm install --no-audit --no-fund
+
+      - name: Проверка (web-ext lint)
+        run: npx web-ext lint --source-dir . --warnings-as-errors
+
+      - name: Сборка архива
+        run: bash build.sh
+
+      - name: Публикация GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            dist/mesh-dark-*.zip
+            dist/mesh-dark-*.xpi
+
+      # Необязательный шаг: подпись в AMO (unlisted, «on your own»).
+      # Выполняется, только если заданы секреты AMO_API_KEY / AMO_API_SECRET.
+      - name: Подпись в Mozilla Add-ons (AMO)
+        if: ${{ env.AMO_API_KEY != '' && env.AMO_API_SECRET != '' }}
+        run: |
+          npx web-ext sign \
+            --source-dir . \
+            --channel unlisted \
+            --api-key "$AMO_API_KEY" \
+            --api-secret "$AMO_API_SECRET" \
+            --artifacts-dir web-ext-artifacts
+
+      - name: Приложить подписанный .xpi к релизу
+        if: ${{ env.AMO_API_KEY != '' && env.AMO_API_SECRET != '' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: web-ext-artifacts/*.xpi

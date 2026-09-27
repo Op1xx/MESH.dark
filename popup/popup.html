@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>МЭШ · Тёмная тема</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="head">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="32" height="32">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#8ca1ff"/>
+            <stop offset="1" stop-color="#5b73e6"/>
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="30" height="30" rx="9" fill="url(#g)"/>
+        <path d="M21.5 19.7A7.4 7.4 0 0 1 12.3 10a7.9 7.9 0 1 0 9.2 9.7Z"
+              fill="#0e1015"/>
+      </svg>
+    </div>
+    <div class="titles">
+      <h1>МЭШ · Тёмная тема</h1>
+      <p id="status">school.mos.ru</p>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="label">Режим</div>
+    <div class="segmented" id="mode" role="radiogroup" aria-label="Режим темы">
+      <button type="button" data-value="on"  role="radio">Тёмная</button>
+      <button type="button" data-value="auto" role="radio">Системная</button>
+      <button type="button" data-value="off" role="radio">Светлая</button>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="label">Акцент</div>
+    <div class="accents" id="accent" role="radiogroup" aria-label="Акцентный цвет">
+      <button type="button" data-value="indigo"  class="swatch" style="--c:#7c94ff" title="Индиго"  aria-label="Индиго"></button>
+      <button type="button" data-value="blue"    class="swatch" style="--c:#4a9eff" title="Синий"   aria-label="Синий"></button>
+      <button type="button" data-value="violet"  class="swatch" style="--c:#9d84ff" title="Фиолет"  aria-label="Фиолетовый"></button>
+      <button type="button" data-value="green"   class="swatch" style="--c:#46cf62" title="Зелёный" aria-label="Зелёный"></button>
+      <button type="button" data-value="magenta" class="swatch" style="--c:#ff5aa8" title="Розовый" aria-label="Розовый"></button>
+    </div>
+  </section>
+
+  <section class="block">
+    <label class="row">
+      <span>
+        <span class="row-title">Автокоррекция страниц</span>
+        <span class="row-sub">Докрашивает устаревшие блоки без токенов</span>
+      </span>
+      <input type="checkbox" id="autofix" class="switch" />
+    </label>
+    <label class="row">
+      <span>
+        <span class="row-title">Приглушать изображения</span>
+        <span class="row-sub">Снижает яркость картинок и видео</span>
+      </span>
+      <input type="checkbox" id="dim" class="switch" />
+    </label>
+  </section>
+
+  <footer class="foot">
+    <span>Применяется ко всем вкладкам school.mos.ru</span>
+    <span class="ver" id="ver">v1.0.0</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
